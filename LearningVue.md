@@ -1,4 +1,4 @@
-### 组件编码规范
+#### 组件编码规范
 
 ##### 组件命名
 
@@ -12,6 +12,84 @@
 
 - 减少行内表达式
 - 多用method或者computed
+
+
+
+##### 组件props原子化
+
+- 避免使用复杂的对象
+- 尽量只使用js原始类型（string，number，boolean）
+- 就是把一个复杂的configObj都拆分开来，作为多个独立属性传入组件
+
+
+
+##### 组件结构化
+
+```jsx
+<template lang="html">
+  <div class="Ranger__Wrapper">
+    <!-- ... -->
+  </div>
+</template>
+
+<script type="text/javascript">
+  export default {
+    // 不要忘记了 name 属性
+    name: 'RangeSlider',
+    // 组合其它组件
+    extends: {},
+    // 组件属性、变量
+    props: {
+      bar: {}, // 按字母顺序
+      foo: {},
+      fooBar: {},
+    },
+    // 变量
+    data() {},
+    computed: {},
+    // 使用其它组件
+    components: {},
+    // 方法
+    watch: {},
+    methods: {},
+    // 生命周期函数
+    beforeCreate() {},
+    mounted() {},
+  };
+</script>
+
+<style scoped>
+  .Ranger__Wrapper { /* ... */ }
+</style>
+```
+
+
+
+##### 谨慎使用this.$refs
+
+- Vue.js 支持通过 `ref` 属性来访问其它组件和 HTML 元素。并通过 `this.$refs` 可以得到组件或 HTML 元素的上下文。在大多数情况下，通过 `this.$refs`来访问其它组件的上下文是可以避免的。
+- 尽量使用props和事件传递来实现相应的功能。
+
+
+
+##### 提供组件API文档，demo
+
+- 每个组件都要写一个README.md
+- 文档应包括，组件的功能，组件的接口描述等
+
+
+
+##### 校验组件代码
+
+- ESLint解析.vue文件：`eslint src/xx/xxx.vue`
+
+- JSHint解析HTML：
+
+  `jshint --config modules/.jshintrc --extra-ext=html --extract=auto modules/`
+
+
+
+
 
 ---
 
